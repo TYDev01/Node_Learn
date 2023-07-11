@@ -1,15 +1,14 @@
 const exp = require("constants");
 const express = require("express");
-
+const path = require("path"); // This is a core module
+const rootDir = require("../utils/path");
 const router = express.Router();
 
-router.get("/newproduct", (req, res) => {
-  res.send(
-    '<form action="/product" method="POST"><input type="text" name="title" ><button type="submit">Submit</button></form>'
-  );
+router.get("/add-product", (req, res) => {
+  res.sendFile(path.join(rootDir, "views", "add-product.html"));
 });
 
-router.post("/product", (req, res) => {
+router.post("/add-product", (req, res) => {
   console.log(req.body);
   res.redirect("/");
 });
