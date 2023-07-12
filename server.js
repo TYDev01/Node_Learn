@@ -4,6 +4,7 @@ const path = require("path");
 const adminData = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const bodyParser = require("body-parser");
+const e = require("express");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -20,11 +21,17 @@ app.use(express.static(path.join(__dirname, "public")));
 //   console.log(num);
 // });
 
+app.set('view engine', 'pug'); // Set the view engine to pug
+app.set('views', 'views') // Set the views folder to views
+
+
 app.use("/admin", adminData.routes);
 app.use(shopRoutes);
 app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+  res.status(404).render('404', {pageTitle: 'Page not found'});
 });
+
+
 
 // const routes = require("./routes");
 
